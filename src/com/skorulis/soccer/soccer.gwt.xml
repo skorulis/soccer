@@ -1,0 +1,15 @@
+
+<module rename-to='soccer'>
+  <inherits name='forplay.ForPlay'/>
+  <inherits name="com.skorulis.forplay.skorulis" />
+
+  <source path='core'/>
+  <source path='html'/>
+  <source path='components'/>
+  <source path='entities'/>
+  
+
+  <public path="resources" />
+
+  <entry-point class='com.skorulis.soccer.html.SoccerHtml'/>
+</module>
