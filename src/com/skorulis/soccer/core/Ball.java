@@ -57,7 +57,6 @@ public class Ball implements Entity{
 
   @Override
   public ArrayList<Event> update(float delta, InputState input) {
-    // TODO Auto-generated method stub
     return null;
   }
 

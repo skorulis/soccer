@@ -7,6 +7,7 @@ import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
@@ -82,10 +83,10 @@ public class MousePaddle implements Entity,ContactListener{
     CircleShape circleShape = new CircleShape();
     circleShape.m_radius = RADIUS*physics.physScale();
     fixtureDef.shape = circleShape;
-    fixtureDef.density = 0.4f;
-    fixtureDef.friction = 0.00f;
+    fixtureDef.density = 100.4f;
+    fixtureDef.friction = 1.00f;
     fixtureDef.restitution = 0.35f;
-    fixtureDef.isSensor = true;
+    fixtureDef.isSensor = false;
     
     circleShape.m_p.set(0, 0);
     return fixtureDef;
@@ -94,7 +95,19 @@ public class MousePaddle implements Entity,ContactListener{
   @Override
   public void beginContact(Contact contact) {
     log().debug("BEGIN");
-    contact.getFixtureA()==
+    if(contact.getFixtureA().getBody()==physics.body()) {
+    	log().debug("FIX A");
+    	pushBall(contact.getFixtureB().getBody());
+    } else if(contact.getFixtureB().getBody()==physics.body()) {
+    	log().debug("FIX B");
+    	pushBall(contact.getFixtureA().getBody());
+    	//contact.getFixtureA().
+    }
+  }
+  
+  public void pushBall(Body ball) {
+	 ball.applyLinearImpulse(new Vec2(0,-523*physics.physScale()), new Vec2(Ball.RADIUS*physics.physScale(),Ball.RADIUS*physics.physScale()));
+	  //ball.applyForce(new Vec2(0,-123), new Vec2(Ball.RADIUS*physics.physScale(),Ball.RADIUS*physics.physScale()));
   }
 
   @Override
